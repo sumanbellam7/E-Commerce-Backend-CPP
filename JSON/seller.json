@@ -1,0 +1,12 @@
+{
+    "users" : {
+        "Deep" : {
+            "shop_name" : "tech",
+            "products" : {
+                "home" : "none",
+                "tech" : ["fan","controller"]
+            }
+        }
+    }
+
+}
