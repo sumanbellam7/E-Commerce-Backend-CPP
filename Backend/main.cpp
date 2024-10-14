@@ -25,7 +25,7 @@ int main() {
 
     // Accessing the data
     try {
-        std::string userName = "Deep";
+        std::string userName = "Adam";
         std::string shopName = jsonData["users"][userName]["shop_name"];
         std::string homeProduct = jsonData["users"][userName]["products"]["home"];
         auto techProducts = jsonData["users"][userName]["products"]["tech"];
