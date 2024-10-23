@@ -10,74 +10,133 @@
 
 using namespace std;
 
-namespace seller {
-//can delete this later 
-//there is address included in the seller info so i added it
-struct Address {
-        string street;
-        string city;
-        string state;
-        string zip;
-    };
+//can delete this later
+class Address {
+
+private:
+
+    string shop_name;
+    string street;
+    string city;
+    string state;
+    string zip;
+
+public:
+
+    Address(){}
+
+    Address(string street,string city,string state,string zip){
+        this->street = street;
+        this->city = city;
+        this->state = state;
+        this->zip = zip;
+    }
+
+    void set_street(string street){
+        this->street = street;
+    }
+
+    void set_shop_name(string shop){
+        this->shop_name = shop;
+    }
+
+    void set_city(string city){
+        this->city = city;
+    }
+
+    void set_state(string state){
+        this->state = state;
+    }
+
+    void set_zip(string zip){
+        this->zip = zip;
+    }
+
+    string get_address(){
+        string addr = street + ", " + city + ", " + state + ", " + zip + ".";
+        return addr; 
+    }
+
+};
+
 //for the seller info
-struct SellerInfo {
-         string seller_id;
-        string name;
-        string email;
-        string phone;
-        Address address;
-    };
+class Seller {
+
+private:
+
+    string name;
+    string email;
+    string phone;
+    Address address;
+
+public:
+
+    Seller(){}
+
+    Seller(string name,string email,string phone,Address addr){
+        this->name = name;
+        this->email = email;
+        this->phone = phone;
+        this->address = addr;
+    }
+
+    void print_seller_info(){
+        cout << "name : " << name << endl;
+        cout << "email : " << email << endl;
+        cout << "phone : " << phone << endl;
+        cout << "address : " << address.get_address() << endl;
+
+    }
+
+    void set_name(string name){
+        this->name = name;
+    }
+
+    void set_email(string email){
+        this->email = email;
+    }
+
+    void set_phone(string phone){
+        this->phone = phone;
+    }
+
+    void set_addr(Address addr){
+        this->address = addr;
+    }
+};
+
+namespace seller {
+
 //maping to store sellers info 
- unordered_map<string, SellerInfo> seller_map;\
+unordered_map<string, Seller> seller_map;
+// name -> Seller object 
 
-    inline void register_user(const string& name,const string& shopname){
-        ifstream file(filename);
-        if (!file.is_open()) {
-            cerr << "Failed to open file: " << filename << endl;
-            return;
-    }
+inline void register_user(){
 
-json sellers_json;
-        file >> sellers_json;
-        file.close();
+    Address address;
+    Seller seller;
 
-for (const auto& seller : sellers_json["sellers"]) {
-            SellerInfo info;
-            info.seller_id = seller["seller_id"].get<string>();
-            info.name = seller["name"].get<string>();
-            info.email = seller["email"].get<string>();
-            info.phone = seller["phone"].get<string>();
+    string temp;
+    cout << "Enter your name : " ;
+    cin >> temp;
+    seller.set_name(temp);
+
+    cout << "Enter your email : ";
+    cin >> temp;
+    seller.set_email(temp);
+
+    cout << "Enter your phone number : ";
+    cin >> temp;
+    seller.set_phone(temp);
+
+    cout << "Address : " << endl;
+    cout << "Enter shop name : ";
+    cin >> temp;
+    address.set_shop_name()
 
 
-            info.address.street = seller["address"]["street"].get<string>();
-            info.address.city = seller["address"]["city"].get<string>();
-            info.address.state = seller["address"]["state"].get<string>();
-            info.address.zip = seller["address"]["zip"].get<string>();
-seller_map[info.seller_id] = info;
 }
 
-        cout << "Loaded " << seller_map.size() << " sellers from " << filename << endl;
-    }
- inline void register_user(const string& seller_id, const string& name, const string& email, const string& phone, const Address& address) {
-        if (seller_map.find(seller_id) != seller_map.end()) {
-            cout << "Seller with ID " << seller_id << " is already registered." << endl;
-            return;
-        }
-
-        SellerInfo info = {seller_id, name, email, phone, address};
-        seller_map[seller_id] = info;
-        cout << "Registered seller: " << name << endl;
-    }
-inline void display_sellers() {
-        for (const auto& pair : seller_map) {
-            const SellerInfo& info = pair.second;
-            cout << "Seller ID: " << info.seller_id << ", Name: " << info.name
-                 << ", Email: " << info.email << ", Phone: " << info.phone
-                 << ", Address: " << info.address.street << ", " << info.address.city
-                 << ", " << info.address.state << ", " << info.address.zip << endl;
-        }
-    }
 }
-
 
 #endif 
