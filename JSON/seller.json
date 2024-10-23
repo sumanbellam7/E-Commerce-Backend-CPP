@@ -1,12 +1,26 @@
 {
-    "users" : {
-        "Deep" : {
-            "shop_name" : "tech",
-            "products" : {
-                "home" : "none",
-                "tech" : ["fan","controller"]
-            }
-        }
+    "deep": {
+        "address": {
+            "city": "5",
+            "shop_name": "3",
+            "state": "6",
+            "street": "4",
+            "zip": "7"
+        },
+        "email": "1",
+        "name": "deep",
+        "phone": "2"
+    },
+    "harsh": {
+        "address": {
+            "city": "5",
+            "shop_name": "3",
+            "state": "6",
+            "street": "4",
+            "zip": "7"
+        },
+        "email": "1",
+        "name": "harsh",
+        "phone": "2"
     }
-
 }

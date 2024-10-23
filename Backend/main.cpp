@@ -1,48 +1,22 @@
-#include "./headers/json.hpp"
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <unordered_map>
+#include "./headers/json.hpp"
+#include "./headers/seller.hpp"
+#include "./headers/buyer.hpp"
+
+using namespace std;
+
+// seller typedefs
+using seller_class = seller::Seller ;
+using seller_addr_class = seller::Address ;
 
 int main() {
-    // Create a JSON object
-    nlohmann::json jsonData;
 
-    // Read JSON data from a file
-    std::ifstream inputFile("../JSON/seller.json");
-    if (!inputFile) {
-        std::cerr << "Could not open the file!" << std::endl;
-        return 1;
-    }
+    unordered_map <string,seller_class> seller_map;
 
-    try {
-        // Parse the JSON data from the file
-        inputFile >> jsonData;
-        inputFile.close();
-    } catch (const nlohmann::json::parse_error& e) {
-        std::cerr << "Parse error: " << e.what() << std::endl;
-        return 1;
-    }
-
-    // Accessing the data
-    try {
-        std::string userName = "Adam";
-        std::string shopName = jsonData["users"][userName]["shop_name"];
-        std::string homeProduct = jsonData["users"][userName]["products"]["home"];
-        auto techProducts = jsonData["users"][userName]["products"]["tech"];
-
-        // Print the data
-        std::cout << "Shop Name: " << shopName << std::endl;
-        std::cout << "Home Product: " << homeProduct << std::endl;
-        std::cout << "Tech Products: ";
-        for (const auto& product : techProducts) {
-            std::cout << product << " ";
-        }
-        std::cout << std::endl;
-
-    } catch (const nlohmann::json::type_error& e) {
-        std::cerr << "Type error: " << e.what() << std::endl;
-        return 1;
-    }
+    seller::register_user(seller_map);
+    seller::save_data(seller_map);
 
     return 0;
 }
